@@ -10,6 +10,7 @@ import java.io.*;
  *
  * @author mausa
  */
+
 public class Uno {
     private static int metodo(){
         int valor = 0;
