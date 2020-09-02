@@ -10,15 +10,17 @@ package TP2;
  * @author mausa
  */
 public class Cliente extends Thread {
-    public void run(){
-        System.out.println("soy"+Thread.currentThread().getName());
+
+    @Override
+    public void run() {
+        System.out.println("soy " + Thread.currentThread().getName());
         Recurso.uso();
-        
-        try{
+
+        try {
             Thread.sleep(2000);
-        }catch (InterruptedException e){
-            
+        } catch (InterruptedException e) {
+
         }
     }
-    
+
 }
