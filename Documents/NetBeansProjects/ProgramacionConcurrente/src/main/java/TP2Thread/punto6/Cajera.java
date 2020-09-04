@@ -10,29 +10,20 @@ package TP2Thread.punto6;
  *
  * @author mausa
  */
-public class Cajera {
 
-    private String nombre; // Agregar Constructor, y métodos de acceso 
-    public Cajera(String nombre){
+public class Cajera implements Runnable {
+
+    private String nombre;
+    private Cliente cliente;
+    private long initialTime;
+
+    public Cajera(String nombre, Cliente cliente, long tiempo) {
         this.nombre = nombre;
-    }
-    
-    public void procesarCompra(Cliente cliente, long timeStamp) {
-
-        System.out.println("La cajera " + this.nombre + " COMIENZA A PROCESAR LA COMPRA DEL CLIENTE "
-                + cliente.getNombre() + " EN EL TIEMPO: " + (System.currentTimeMillis() - timeStamp) / 1000 + "seg");
-
-        for (int i = 0; i < cliente.getCarroCompra().length; i++) {
-            this.esperarXsegundos(cliente.getCarroCompra()[i]);
-            System.out.println("Procesado el producto " + (i + 1) + "->Tiempo: " 
-                    + (System.currentTimeMillis() - timeStamp) / 1000 + "seg");
-        }
-
-        System.out.println("La cajera " + this.nombre + " HA TERMINADO DE PROCESAR " 
-                + cliente.getNombre() + " EN EL TIEMPO: " + (System.currentTimeMillis() - timeStamp) / 1000 + "seg");
+        this.cliente = cliente;
+        this.initialTime = tiempo;
     }
 
- public void run() {
+    public void run() {
         System.out.println("La cajera " + this.nombre + " COMIENZA A PROCESAR LA COMPRA DEL CLIENTE " + cliente.getNombre() + " EN EL TIEMPO: " + (System.currentTimeMillis() - this.initialTime) / 1000 + " seg.");
 
         for (int i = 0; i < cliente.getCarroCompra().length; i++) {
@@ -43,7 +34,7 @@ public class Cajera {
         System.out.println("La cajera " + this.nombre + " HA TERMINADO DE PROCESAR " + cliente.getNombre() + " EN EL TIEMPO: " + (System.currentTimeMillis() - this.initialTime) / 1000 + " seg.");
     }
 
-   public void esperarXsegundos(int delay) {
+    public void esperarXsegundos(int delay) {
 
         try {
             Thread.sleep(delay * 1000);
@@ -53,6 +44,5 @@ public class Cajera {
         }
 
     }
-
-
 }
+
