@@ -1,4 +1,4 @@
-package TP3;
+package TP3.Punto1;
 
 public class Main {
 
