@@ -21,16 +21,7 @@ public class Main {
         
         o1.start();
         c1.start();
-        
-        try{
-            o1.join();
-            c1.join();
-        }catch(Exception ex){
-            
-        }
-        
-        System.out.println("Vida del jugador: "+player.getVida());
-        
+              
     
 }
     
