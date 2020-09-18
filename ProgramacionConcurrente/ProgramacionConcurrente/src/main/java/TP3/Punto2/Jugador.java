@@ -12,20 +12,23 @@ package TP3.Punto2;
 public class Jugador {
     int vida = 10;
     
-  public synchronized void recibirDaño(int daño){
-      vida = vida + daño;
-  } 
+  //public synchronized void recibirDaño(int daño){
+  //    vida = vida + daño;
+  //} 
   
-    public synchronized void recibirCura(int cura){
-      vida = vida + cura;
-  }
+ //   public synchronized void recibirCura(int cura){
+ //     vida = vida + cura;
+ // }
     
-    public int getVida(){
+    public synchronized int getVida() {
         return this.vida;
     }
 
     public synchronized void setVida(int vida) {
+        System.out.println(Thread.currentThread().getName() + " Modificando vida...");
         this.vida = vida;
+        System.out.println("La nueva vida del jugador es: " + vida);
     }
-  
+
 }
+  
