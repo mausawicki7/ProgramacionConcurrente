@@ -14,6 +14,9 @@ import java.util.logging.Logger;
  * @author mausa
  */
 public class Barberia {
+    
+    //Lo mas recomendable es que la sincronizacion la haga el recurso compartido
+     //Como en este caso al Barberia es el recurso compartido y aqui tengo los semaforos
 
     Semaphore semSillon;
     Semaphore semBarbero;
@@ -22,7 +25,7 @@ public class Barberia {
 
     public Barberia(String nombre) {
         miNombre = nombre;
-        //Inicializo los semaforos en true para que el barbero corte a los clientes que estan esperando para ser atendidos
+        //Inicializo los semaforos en true para que el barbero le corte el pelo a los clientes que estan esperando para ser atendidos
         //en orden de llegada.
         semSillon = new Semaphore(1, true);
         semBarbero = new Semaphore(0, true);
