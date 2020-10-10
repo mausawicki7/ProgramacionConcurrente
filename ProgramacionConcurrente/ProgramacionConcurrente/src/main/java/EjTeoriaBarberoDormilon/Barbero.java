@@ -19,13 +19,15 @@ public class Barbero extends Persona implements Runnable {
         
     }
     
-    private void atender(){
-        System.out.println("Ok, sentate en la silla pibe asi te corto la peluca.");
+    public boolean atender(){
+        boolean atendiendo = true;
+        System.out.println("Ok, sentate en el sillon asi te corto el pelo.");
         try{
             Thread.sleep((int) (Math.random() * 200));
         }catch(InterruptedException e){
             System.out.println("Me interrumpieron mi trabajo.");
         }
+        return atendiendo;
     }
 
     @Override
@@ -33,6 +35,7 @@ public class Barbero extends Persona implements Runnable {
         int cuantos = 0;
         System.out.println("Soy el barbero "+nombre);
         
+        //Espera activa
         while(true){
             miBarberia.esperarCliente(nombre);
             this.atender();        
