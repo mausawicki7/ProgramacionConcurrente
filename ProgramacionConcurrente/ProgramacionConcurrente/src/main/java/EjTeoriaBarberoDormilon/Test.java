@@ -14,7 +14,7 @@ import java.util.logging.Logger;
  */
 public class Test {
     public static void main(String [] args){
-        Barberia unaBarberia = new Barberia("El Barbero Dormilon");
+        Barberia unaBarberia = new Barberia("El Barbero Dormilon", 5);
         Barbero unBarbero = new Barbero("Ricky Fort", unaBarberia);
         
         Thread hiloBarbero = new Thread(unBarbero);
