@@ -26,8 +26,7 @@ public class Main {
         Thread [] hiloEmpleado = new Thread[6];
         
         for(int i = 0; i<hiloEmpleado.length; i++){
-            //Utilizamos math random para que el empleado elija aleatoriamente si quiere: 0 = beber, 1 = comer, 2 = beber y comer
-            Empleado unEmpleado = new Empleado("Empleado "+i, unaConfiteria, (int) (Math.random() * 3));
+            Empleado unEmpleado = new Empleado("Empleado "+i, unaConfiteria);
             hiloEmpleado[i] = new Thread(unEmpleado);
             hiloEmpleado[i].start();
         }
