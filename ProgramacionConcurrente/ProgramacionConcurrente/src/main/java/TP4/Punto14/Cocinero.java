@@ -26,7 +26,7 @@ public class Cocinero extends Persona implements Runnable {
         boolean atendiendo = true;
         try {
             System.out.println("Estoy cocinando, no me tardo mucho");
-            Thread.sleep((int) (Math.random() * 200));
+            Thread.sleep((int) (Math.random() * 300));
         } catch (InterruptedException e) {
              Logger.getLogger(Confiteria.class.getName()).log(Level.SEVERE, null, e);
         }
