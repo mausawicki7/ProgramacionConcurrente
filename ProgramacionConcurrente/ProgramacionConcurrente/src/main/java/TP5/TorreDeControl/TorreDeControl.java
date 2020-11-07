@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package TP5.TorreDeControl;
 
 import java.util.concurrent.Semaphore;
@@ -13,7 +8,7 @@ import java.util.concurrent.Semaphore;
  */
 public class TorreDeControl {
     
-    //Semaforo para que solo 1 avion pueda usar la pista en un momento determinado.
+    //Semaforo para que los aviones puedan usar la pista de a uno por vez.
     private Semaphore mutexPista = new Semaphore(1, true); 
     private Semaphore despegar = new Semaphore(0, true);
     private Semaphore aterrizar;
@@ -46,11 +41,11 @@ public class TorreDeControl {
         Thread.sleep((int) (Math.random() * 1000));
         System.out.println(Thread.currentThread().getName() +" ha despegado.");
         
-        //Si ya no quedan mas aviones por aterrizar, entonces que despegue uno.
-        if(aterrizajesRestantes == 0){
+        //Si ya no quedan mas aviones por aterrizar, entonces dale el permiso para despegar a los que están ready.
+        if (aterrizajesRestantes == 0){
             despegar.release();
         //Si quedan aviones por aterrizar, entonces que aterricen todos los que faltan.
-        }else{
+        } else {
             aterrizar.release(cantAvionesConPrioridad);
         }
         //Los aviones terminan de usar la pista
@@ -66,8 +61,8 @@ public class TorreDeControl {
         this.aterrizajesRestantes--;
         
         //Si ya no quedan mas aviones con prioridad de aterrizaje o si ya no quedan mas aviones por aterrizar
-        //Que despegue uno
-        if(aterrizajes % cantAvionesConPrioridad == 0 || aterrizajesRestantes == 0){
+        //Dale permiso para despegar a los que estan en tierra
+        if (aterrizajes % cantAvionesConPrioridad == 0 || aterrizajesRestantes == 0){
             despegar.release();
         }
         

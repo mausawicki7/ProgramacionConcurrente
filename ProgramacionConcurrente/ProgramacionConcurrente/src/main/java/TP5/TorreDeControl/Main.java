@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package TP5.TorreDeControl;
 
 /**
@@ -12,19 +7,21 @@ package TP5.TorreDeControl;
 public class Main {
 
     public static void main(String[] args) {
-
-        int cantAvionesConPrioridad = 5;
-        int cantDespegues = 7;
+        //Esta variable indica cada cuantos aterrizajes puede despegar un avion
+        int cantAvionesConPrioridad = 10;
+        //Estos son los aviones que estan en tierra
+        int cantDespegues = 15;
+        //Estos son los aviones que estan volando
         int cantAterrizajes = 12;
         
         TorreDeControl unaTorre = new TorreDeControl(cantAterrizajes, cantAvionesConPrioridad);
-
+        //Creo los aviones que estan en tierra
         for (int i = 0; i < cantDespegues; i++) {
             Avion unAvion = new Avion(unaTorre, 2);
             Thread a = new Thread(unAvion, "Avion D-" + i);
             a.start();
         }
-        
+        //Creo los aviones que estan volando
         for (int i = cantDespegues; i < cantAterrizajes + cantDespegues; i++) {
             Avion unAvion = new Avion(unaTorre,1);
             Thread a = new Thread(unAvion, "Avion A-" + i);

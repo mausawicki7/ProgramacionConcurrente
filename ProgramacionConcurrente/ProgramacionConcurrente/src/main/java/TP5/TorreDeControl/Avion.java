@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package TP5.TorreDeControl;
 
 import java.util.logging.Level;
@@ -14,7 +9,6 @@ import java.util.logging.Logger;
  */
 public class Avion implements Runnable {
 
-
     private TorreDeControl torre;
     private int despegaOAterriza;
 
@@ -24,7 +18,8 @@ public class Avion implements Runnable {
     }
 
     public void run() {
-
+        //despegaOAterriza = 1 el avion esta en el cielo
+        //despegaOAterriza = 2 el avion esta en tierra
         switch (despegaOAterriza) {
             case 1:
             {
@@ -37,7 +32,6 @@ public class Avion implements Runnable {
                     Logger.getLogger(Avion.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
-
 
             case 2:
             {
