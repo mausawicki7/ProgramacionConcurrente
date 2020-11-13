@@ -21,6 +21,7 @@ public class Persona implements Runnable {
     
     public void run(){
         this.sala.entrarSala();
+        this.sala.recorrerMuseo();
         this.sala.salirSala();
         
     }

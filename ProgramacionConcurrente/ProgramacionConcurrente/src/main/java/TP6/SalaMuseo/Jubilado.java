@@ -15,6 +15,7 @@ public class Jubilado extends Persona {
     
     public void run(){
         this.sala.entrarSalaJubilado();
+        this.sala.recorrerMuseo();
         this.sala.salirSala();
     }
 }

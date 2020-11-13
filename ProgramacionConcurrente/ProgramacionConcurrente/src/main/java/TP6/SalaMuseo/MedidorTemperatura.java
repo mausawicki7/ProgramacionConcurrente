@@ -13,6 +13,7 @@ import java.util.logging.Logger;
 public class MedidorTemperatura implements Runnable {
 
     private GestorDeSala unGestor;
+    private int var;
 
     public MedidorTemperatura(GestorDeSala unGestor) {
         this.unGestor = unGestor;
@@ -22,9 +23,10 @@ public class MedidorTemperatura implements Runnable {
     public void run() {
         try {
             while (true) {
-                this.unGestor.notificarTemperatura((int) Math.random() * 10+30);
-
-                Thread.sleep(2500);
+                var = (int) (Math.random() * 10 + 25);
+                this.unGestor.notificarTemperatura(var);
+                
+                Thread.sleep(1000);
             }
         } catch (InterruptedException ex) {
             Logger.getLogger(MedidorTemperatura.class.getName()).log(Level.SEVERE, null, ex);
