@@ -37,20 +37,16 @@ public class Usuario implements Runnable {
             int eleccionImpresora = (r.nextInt(3) + 1);
             this.generarTrabajo();
             switch (eleccionImpresora) {
-                case 0:
-                    usarImpresoraA();
-                    break;
-                case 1:
-                    usarImpresoraB();
-                    break;
-                case 2:
+                case 0 -> usarImpresoraA();
+                case 1 -> usarImpresoraB();
+                case 2 -> {
                     Thread.currentThread().setName("Usuario general");
                     if (centro.estaLibreImpresoraA()) {
                         usarImpresoraA();
                     } else {
                         usarImpresoraB();
                     }
-                    break;
+                }
             }
 
         }
