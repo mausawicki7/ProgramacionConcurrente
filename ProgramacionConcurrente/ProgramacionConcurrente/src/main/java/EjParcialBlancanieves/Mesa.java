@@ -15,7 +15,9 @@ public class Mesa {
     private Semaphore servirComida = new Semaphore(0);
     private Semaphore comer = new Semaphore(0);
     private Semaphore mutex = new Semaphore(1);
+    private Semaphore semTerminarPaseo = new Semaphore(0);
     private int enanosSentados = 0;
+    private boolean paseando = false;
 
     public Mesa(int cantSillas) {
         semSillas = new Semaphore(cantSillas);
@@ -27,9 +29,17 @@ public class Mesa {
             puedeComer = true;
             mutex.acquire();
             enanosSentados++;
-            mutex.release();
+
             System.out.println(Thread.currentThread().getName() + " se sentó en una silla..");
-            servirComida.release();
+
+            if (this.paseando) {
+                this.semTerminarPaseo.release();
+            } else {
+                this.servirComida.release();
+            }
+
+            mutex.release();
+
             comer.acquire();
 
         } else {
@@ -49,8 +59,13 @@ public class Mesa {
 
     public void esperarPedido() throws InterruptedException {
 
-        System.out.println(Thread.currentThread().getName() + " está paseando..");
-        servirComida.acquire();
+        if (this.servirComida.tryAcquire()) {
+            this.paseando = false;
+        } else {
+            System.out.println(Thread.currentThread().getName() + " está paseando..");
+            this.paseando = true;
+            this.semTerminarPaseo.acquire();
+        }
 
     }
 
