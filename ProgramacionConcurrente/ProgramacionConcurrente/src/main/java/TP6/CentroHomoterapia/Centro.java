@@ -9,162 +9,157 @@ import java.util.concurrent.locks.ReentrantLock;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-
 /**
  *
  * @author mausa
  */
 public class Centro {
 
+    //Turno actual empieza en 1 (pasa el cliente con turno 1)
+    private int turnoActual = 1;
+    //El turno que se le asignará a cada paciente
+    private int turno = 1;
+
+    //Variables pasadas por parámetro (Constructor)
     private int camillasDisponibles;
-    private int camillasOcupadas = 0;
-
+    private int cantidadSillas;
     private int revistasDisponibles;
-    private int leyendo = 0;
 
-    private int sillasDisponibles;
-    private int sentados = 0;
+    private Lock mutex = new ReentrantLock(true);
+    private Condition esperaTurno = mutex.newCondition();
 
-    private int capacidadMaxima;
-    private int capacidadActual = 0;
-
-    private Lock lock = new ReentrantLock(true);
-    private Condition hayLugar = lock.newCondition();
-    private Condition revista = lock.newCondition();
-    private Condition hayCamillas = lock.newCondition();
-
-    public Centro(int camillasDisponibles, int revistasDisponibles, int sillasDisponibles, int capacidadMaxima) {
+    public Centro(int camillasDisponibles, int cantidadSillas, int cantidadRevistas) {
         this.camillasDisponibles = camillasDisponibles;
-        this.revistasDisponibles = revistasDisponibles;
-        this.sillasDisponibles = sillasDisponibles;
-        this.capacidadMaxima = capacidadMaxima;
-
+        this.cantidadSillas = cantidadSillas;
+        this.revistasDisponibles = cantidadRevistas;
     }
 
-    public void entrar() {
+    public int entrarSacarTurno() {
 
-        lock.lock();
+        mutex.lock();
+        System.out.println(Thread.currentThread().getName() + " entró al centro..");
+        //Asigno un turno al paciente e incremento el rollo de los turnos
+        int turnoPaciente = turno;
+        turno++;
         try {
-
-            //Si no hay lugar espera
-            while (capacidadActual >= capacidadMaxima) {
-
-                hayLugar.await();
-
-            }
-
-            System.out.println(Thread.currentThread().getName() + " entró al centro..");
-            capacidadActual++;
-
-        } catch (InterruptedException ex) {
-            Logger.getLogger(Centro.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
 
-            lock.unlock();
+            mutex.unlock();
         }
-
+        //Se le retorna el turno al paciente para que lo almacene
+        return turnoPaciente;
     }
 
-    public boolean sentarse() {
+    public boolean esperar(boolean quiereSentarse) {
 
-        lock.lock();
+        mutex.lock();
         boolean seSento = false;
-        /*Si hay silla se sienta, si no se queda parado (para no bloquear un paciente 
-        esperando una silla y que siga con el flujo de ejecución) */
-        if (sentados < sillasDisponibles) {
+        try {
 
-            System.out.println(Thread.currentThread().getName() + " se sentó..");
-            sentados++;
-            seSento = true;
+            //Si hay silla se sienta, si no se queda parado
+            if (quiereSentarse && cantidadSillas > 0) {
 
-        } else {
+                System.out.println(Thread.currentThread().getName() + " se sentó..");
+                seSento = true;
+                cantidadSillas--;
 
-            System.out.println(Thread.currentThread().getName() + " no consiguió silla y se quedó parado..");
+            } else {
 
+                System.out.println(Thread.currentThread().getName() + " no consiguió silla y se quedó parado..");
+
+            }
+        } finally {
+            mutex.unlock();
         }
-
-        lock.unlock();
 
         return seSento;
 
     }
 
-    public void tomarRevista() {
-
-        lock.lock();
-
+    public boolean tomarCamilla(int turnoPaciente) {
+        mutex.lock();
+        boolean tomoCamilla = false;
+        //Si hay camillas disponibles y es su turno puede pasar a ocupar una camilla
+        if (turnoPaciente == turno && camillasDisponibles > 0) {
+            System.out.println(Thread.currentThread().getName() + " tomó una camilla.");
+            camillasDisponibles--;
+            tomoCamilla = true;
+            //Es hora de que pase el siguiente paciente por lo tanto aumento el turnero
+            turnoActual++;
+        }
         try {
+        } finally {
+            mutex.unlock();
+        }
+        return tomoCamilla;
+    }
 
-            while (leyendo >= revistasDisponibles) {
+    public boolean tomarRevista(int turnoPaciente) {
 
-                revista.await();
+        mutex.lock();
+        boolean tomoRevista = false;
 
-            }
-
-            leyendo++;
+        //Si hay revista disponible la toma
+        if (revistasDisponibles > 0) {
+            System.out.println(Thread.currentThread().getName() + " tomó una revista.");
+            tomoRevista = true;
+            revistasDisponibles--;
+        }
+        try {
+            //Espera su turno mientras lee la revista.
+            esperaTurno.await();
 
         } catch (InterruptedException ex) {
             Logger.getLogger(Centro.class.getName()).log(Level.SEVERE, null, ex);
-        } finally {
-
-            lock.unlock();
         }
-    }
-
-    public void soltarRevista() {
-
-        lock.lock();
-
-        System.out.println(Thread.currentThread().getName() + " dejó la revista..");
-        leyendo--;
-        revista.signalAll();
-
-        lock.unlock();
-
-    }
-
-    public void entrarExtraccion(boolean sentado) {
-
-        lock.lock();
 
         try {
-            while (camillasOcupadas >= camillasDisponibles) {
-
-                hayCamillas.await();
-
+            //Sino tambien puede esperar pero sin leer la revista
+            while (turnoPaciente != turnoActual || camillasDisponibles <= 0) {
+                esperaTurno.await();
             }
-
-            if (sentado) {
-
-                sentados--;
-
-            }
-
-            capacidadActual--;
-            hayLugar.signalAll();
-
-            camillasOcupadas++;
-            System.out.println(Thread.currentThread().getName() + " pasó a hacerse la extracción..");
-
         } catch (InterruptedException ex) {
             Logger.getLogger(Centro.class.getName()).log(Level.SEVERE, null, ex);
+
         } finally {
 
-            lock.unlock();
-
+            mutex.unlock();
         }
-
+        return tomoRevista;
     }
 
-    public void salirExtraccion() {
+    public void finalizar() {
 
-        lock.lock();
+        mutex.lock();
+        System.out.println(Thread.currentThread().getName() + " liberó la camilla");
 
-        camillasOcupadas--;
-        System.out.println(Thread.currentThread().getName() + " salió de la sala");
-        hayCamillas.signal();
+        //Libera la camilla
+        camillasDisponibles++;
 
-        lock.unlock();
+        System.out.println("Camillas disponibles: " + camillasDisponibles);
+        //Les avisa a los que están esperando su turno (leyendo revista o no)
+        esperaTurno.signalAll();
+
+        mutex.unlock();
+    }
+
+    public void atenderse(int turnoPaciente, boolean tomoSilla, boolean tomoRevista) {
+        mutex.lock();
+        //Si habia tomado una revista y/o una silla, las deja
+        if (tomoRevista) {
+            System.out.println(Thread.currentThread().getName() + " dejó la revista..");
+            revistasDisponibles++;
+        }
+
+        if (tomoSilla) {
+            System.out.println(Thread.currentThread().getName() + " dejó la silla..");
+            cantidadSillas++;
+        }
+        System.out.println(Thread.currentThread().getName() + " pasó a una camilla...");
+        camillasDisponibles--;
+        turnoActual++;
+
+        mutex.unlock();
 
     }
 

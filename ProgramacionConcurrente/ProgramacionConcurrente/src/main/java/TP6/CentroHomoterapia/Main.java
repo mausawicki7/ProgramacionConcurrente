@@ -16,12 +16,11 @@ public class Main {
         int camillas = 4;
         int revistas = 3;
         int sillas = 6;
-        int capacidad = 10;
         int cantPacientes = 25;
         Random r = new Random();
         int eleccion = r.nextInt(1);
 
-        Centro unCentro = new Centro(camillas, revistas, sillas, capacidad);
+        Centro unCentro = new Centro(camillas, sillas, revistas);
 
         for (int i = 0; i <= cantPacientes; i++) {
 
