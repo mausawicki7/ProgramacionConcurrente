@@ -44,7 +44,7 @@ public class Tren {
         try {
             //Adquiero el mutex para que los hilos ejecuten atomicamente todas las tareas que estan a continuacion
             mutex.acquire();        
-            asientos.acquire();     //
+            asientos.acquire();     
             System.out.println(Thread.currentThread().getName() + " consiguió lugar..");
         } catch (InterruptedException ex) {
             Logger.getLogger(Tren.class.getName()).log(Level.SEVERE, null, ex);
