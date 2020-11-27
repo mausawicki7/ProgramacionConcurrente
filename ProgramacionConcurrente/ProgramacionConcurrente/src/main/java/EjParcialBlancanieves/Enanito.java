@@ -24,10 +24,12 @@ public class Enanito implements Runnable {
             this.trabajar();
             if (mesa.entrarAComer()) {
                 this.comer();
+                mesa.terminarDeComer();
             }
             this.trabajar();
             if (mesa.entrarAComer()) {
                 this.comer();
+                mesa.terminarDeComer();
             }
 
             this.dormir();
