@@ -48,12 +48,10 @@ public class Mesa {
     }
 
     public void esperarPedido() throws InterruptedException {
-        if (enanosSentados > 0) {
-            servirComida.acquire();
-        } else {
-            System.out.println(Thread.currentThread().getName() + " está paseando..");
-            servirComida.acquire();
-        }
+
+        System.out.println(Thread.currentThread().getName() + " está paseando..");
+        servirComida.acquire();
+
     }
 
     public void servirComida() {
