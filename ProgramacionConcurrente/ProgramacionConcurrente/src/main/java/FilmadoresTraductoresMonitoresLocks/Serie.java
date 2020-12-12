@@ -44,11 +44,17 @@ public class Serie {
         try {
             System.out.println(Thread.currentThread().getName() + " terminó de filmar el capítulo " + (cantCapitulosFilmados + 1));
             cantCapitulosFilmados++;
+            
+            //Pongo en la cola la cantidad de capitulos filmados
             cola.poner(cantCapitulosFilmados);
+            
+            //Aviso a los traductores que hay capitulos para traducir
             traductores.signal();
+            
+            //Inserto el capitulo filmado en el indice cantCapitulos filmados  (insertar(int elem, int pos))
             listaCastellano.insertar(cantCapitulosFilmados, cantCapitulosFilmados);
             
-            //Despierto a todos los socios
+            //Les aviso a todos los socios que eligen ver la serie en castellano que ya tienen un capitulo disponible para ver
             esperaVerCastellano.signalAll();
         } finally {
             mutex.unlock();
@@ -59,6 +65,7 @@ public class Serie {
         int capATraducir;
         mutex.lock();
         try {
+            //Esta condicion quiere decir que si no hay mas capitulos filmados el traductor debe bloquearse
             while (cantCapitulosFilmados == cantCapitulosTraducidos) {
                 System.out.println(Thread.currentThread().getName() + " estoy esperando para empezar a traducir..");
                 traductores.await();
