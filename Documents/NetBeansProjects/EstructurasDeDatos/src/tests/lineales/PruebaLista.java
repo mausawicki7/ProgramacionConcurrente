@@ -117,7 +117,7 @@ public class PruebaLista {
             pos++;
         }
 
-        if (pilaAux.obtenerTope() == null && colaAux.obtenerFrente() == null) {
+        if (pilaAux.esVacia() && colaAux.esVacia()) {
             res = true;
         }
 
