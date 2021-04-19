@@ -21,13 +21,14 @@ public class ArbolBin {
     public ArbolBin() {
         this.raiz = null;
     }
-
+            
     public boolean insertar(Object elemNuevo, Object elemPadre, char lugar) {
         boolean exito = true;
         // inserta elemNuevo como hijo del primero nodo encontrado (en preorden) igual a elemPadre
         // lo pone como hijo izq o hijo der segun char lugar
 
         if (this.raiz == null) {
+            //caso especial
             //si el arbol esta vacío inserto el elemento en la raiz
             this.raiz = new NodoArbol(elemNuevo);
         } else {
@@ -37,8 +38,10 @@ public class ArbolBin {
             NodoArbol nodoPadre = obtenerNodo(this.raiz, elemPadre);
 
             if (nodoPadre != null) {
+                //si hay que ubicarlo en el HI y el HI es vacío
+                //creo un nuevo nodo e inserto el elemNuevo
                 if (lugar == 'I' && nodoPadre.getIzquierdo() == null) {
-                    nodoPadre.setIzquiedo(new NodoArbol(elemNuevo));
+                    nodoPadre.setIzquierdo(new NodoArbol(elemNuevo));
                 } else {
                     if (lugar == 'D' && nodoPadre.getDerecho() == null) {
                         nodoPadre.setDerecho(new NodoArbol(elemNuevo));
@@ -54,11 +57,12 @@ public class ArbolBin {
 
     }
 
-    public NodoArbol obtenerNodo(NodoArbol n, Object buscado) {
+    private NodoArbol obtenerNodo(NodoArbol n, Object buscado) {
         NodoArbol nodoResultado = null;
 
         if (n != null) {
             if (n.getElem().equals(buscado)) {
+                //caso especial que n = buscado
                 //si n es el buscado, lo devuelve
                 nodoResultado = n;
             } else {
@@ -238,7 +242,8 @@ public class ArbolBin {
             if (nodo.getElem().equals(elemento)) {
                 encontrado = true;
                 //Se encuentra a la izquierda o a la derecha del nodo actual?
-            } else if (obtenerAncestrosAux(nodo.getIzquierdo(), lista, elemento) || obtenerAncestrosAux(nodo.getDerecho(), lista, elemento)) {
+            } else if (obtenerAncestrosAux(nodo.getIzquierdo(), lista, elemento) 
+                      || obtenerAncestrosAux(nodo.getDerecho(), lista, elemento)) {
                 // verifica si se encuentra a la izquierda, aprovecho el corto circuito para en caso de que este, no se busque
                 // caso contrario se ejecutara el siguiente llamado recursivo
                 lista.insertar(nodo.getElem(), 1);
