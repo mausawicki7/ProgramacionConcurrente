@@ -41,7 +41,7 @@ public class NodoArbol {
         this.elem = e;
     }
     
-    public void setIzquiedo(NodoArbol izq){
+    public void setIzquierdo(NodoArbol izq){
         this.izquierdo = izq;
     }
     
