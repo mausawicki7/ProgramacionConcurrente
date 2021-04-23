@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package jerarquicas;
 
 import lineales.dinamicas.Cola;
@@ -85,8 +80,7 @@ public class ArbolBin {
 
     // solo busca el padre del nodo raiz
    public Object padre(Object elemento) {
-        return (this.raiz == null || this.raiz.getElem().equals(elemento)) ?
-        null : padreAux(this.raiz, elemento);
+        return (this.raiz == null || this.raiz.getElem().equals(elemento)) ? null : padreAux(this.raiz, elemento);
     }
 
     private Object padreAux(NodoArbol nodo, Object elemento) {
@@ -274,5 +268,28 @@ public class ArbolBin {
             pila.desapilar();
         }
         return lista;
+    }
+    
+    public Lista frontera() {
+        Lista lista = new Lista();
+
+        int pos = 1;
+        fronteraRec(this.raiz, lista, pos);
+
+        return lista;
+    }
+
+    private void fronteraRec(NodoArbol a, Lista lista2, int pos) {
+        if (a != null) {
+            if (a.getDerecho() == null && a.getIzquierdo() == null) {
+
+                lista2.insertar(a.getElem(), pos);
+
+            } else {
+                fronteraRec(a.getDerecho(), lista2, pos);
+                fronteraRec(a.getIzquierdo(), lista2, pos);
+
+            }
+        }
     }
 }
