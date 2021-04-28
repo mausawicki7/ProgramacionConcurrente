@@ -12,18 +12,47 @@ public class MixLineales {
     public static void main(String[] args) {
         int opc;
         boolean resMod;
-        Lista lista1 = new Lista(), lista2 = new Lista(), lista3, lista4 = new Lista();
+        Lista lista0 = new Lista(), lista1 = new Lista(), lista2 = new Lista(), lista3 = new Lista(), lista4 = new Lista();
+        Lista listaRes;
 
+        Cola q = new Cola(), colaRes;
+        q.poner('A');
+        q.poner('B');
+        q.poner('#');
+        q.poner('C');
+        q.poner('#');
+        q.poner('D');
+        q.poner('E');
+        q.poner('F');
+
+        Lista nueva = new Lista();
+
+        //LISTA 0
+        lista0.insertar(1, 1);
+        lista0.insertar(3, 2);
+        lista0.insertar(5, 3);
+        lista0.insertar(7, 4);
+        lista0.insertar(9, 5);
+
+        //LISTA 1
         lista1.insertar(2, 1);
         lista1.insertar(4, 2);
         lista1.insertar(6, 3);
-        
+        lista1.insertar(8, 4);
+        lista1.insertar(10, 5);
 
+        //LISTA 2
         lista2.insertar(5, 1);
         lista2.insertar(1, 2);
         lista2.insertar(6, 3);
         lista2.insertar(7, 4);
 
+        //LISTA 3
+        lista3.insertar('A', 1);
+        lista3.insertar('B', 2);
+        lista3.insertar('C', 3);
+
+        //LISTA 4
         lista4.insertar(9, 1);
         lista4.insertar(6, 2);
         lista4.insertar(5, 3);
@@ -56,25 +85,105 @@ public class MixLineales {
                 System.out.println(resMod);
                 break;
             case 3:
-                System.out.println("Lista 1: " + lista1.toString());           
+                System.out.println("Lista 1: " + lista1.toString());
                 System.out.println("Lista 1 invertida: " + invertir(lista1).toString());
                 break;
             case 4:
                 System.out.println("Lista 2: " + lista2.toString());
                 System.out.println("Lista 2 generada: " + generarLista(lista2).toString());
+                break;
+            case 6:
+                System.out.println("Lista 3: " + lista3.toString());
+                System.out.println("Lista retorno: " + lista3.obtenerMultiplos(3).toString());
+                break;
+            case 5:
+                System.out.println("Lista 3: " + lista3.toString());
+                lista3.eliminarApariciones('B');
+                lista3.eliminarApariciones('G');
+                System.out.println("Lista 3 con el elemento eliminado: " + lista3.toString());
+                break;
+            case 7:
+                System.out.println("Lista 2: " + lista2.toString());
+                Object elemento = "asd";
+                lista2.agregarElem(elemento, 2);
+                System.out.println("Lista 2 con agregarElem: " + lista2.toString());
+                break;
+            case 8:
+
+                System.out.println("Secuencia: " + nueva.generarSecuencia(q, 1));
+                break;
+            case 9:
+                System.out.println("Secuencia: " + nueva.generarSecuenciaExpress(q, 1));
+                break;
+            case 10:
+                System.out.println("Lista 1: " + lista1.toString());
+                lista1.insertarPromedio();
+                System.out.println("Lista 1 + promedio: " + lista1.toString());
+                break;
+            case 11:
+                System.out.println("Lista 1: " + lista1.toString());
+                lista1.promedioPublic();
+                System.out.println("Lista 1 + promedio: " + lista1.toString());
+                break;
+            case 12:
+                System.out.println("Lista 4: " + lista4.toString());
+                lista4.agregarProducto(2);
+                System.out.println("Lista 4 con producto agregado: " + lista4.toString());
+                break;
+            case 13:
+                System.out.println("Lista 0: " + lista0.toString());
+                System.out.println("Lista 1: " + lista1.toString());
+                listaRes = intercalar(lista0, lista1);
+                System.out.println("Lista intercalada: " + listaRes.toString());
+                break;
+            case 14:
+                System.out.println("Cola: " + q.toString());
+                colaRes = generarCola(q);
+                System.out.println(colaRes.toString());
+                break;
+            case 15:
+                System.out.println("Lista 3: "+lista3.toString());
+                colaRes = listaToCola(lista3, 1);
+                System.out.println("Cola respuesta:");
+                System.out.println(colaRes.toString());
+                break;
         }
 
     }
-/**
- *
- * generarLista(Listalis): que recibe por parámetro una estructura de tipo Lista lis con elementos de tipo char que 
- * tiene el siguiente formato: a1a2a3...an, donde cada ai en una sucesión de letras mayúsculas y a partir de lis debe 
- * generar como salida otra Lista de la forma:a1a1”a1∗a2a2”a2∗....∗anan”an donde cada ai” es la secuencia de letras de 
- * ai invertida. Ejemplo: Si lis es AB*C*DEF, la operación generarOtraLista devolverá una Lista con el siguiente 
- * formato: ABBAAB*CCC*DEFFEDDEF
- * NOTA: Para lograr los tramos invertidos de la Lista de salida debe utilizar una Pila auxiliar y para lograr 
- * los tramos no invertidos debe utilizar una Cola auxiliar.
- */
+
+    public static void menu() {
+        System.out.println("Ingrese una opción:");
+        System.out.println("1. Concatenar dos listas L1 y L2");
+        System.out.println("2. Comprobar que la lista cumpla con cadena0cadena0cadenaInvertida");
+        System.out.println("3. Invertir lista");
+        System.out.println("4. Generar lista de ABC --> ABCCBAABC");
+        System.out.println("5. (TDA Lista) Elimina de la lista todas las apariciones de elementos iguales a x");
+        System.out.println("6. (TDA Lista) Obtener multiplos");
+        System.out.println("7. (TDA Lista) Agregar elemento y repetirlo cada x posiciones");
+        System.out.println("8. (TDA Lista) Generar secuencia");
+        System.out.println("9. (TDA Lista) Generar secuencia 2");
+        System.out.println("10. (TDA Lista) Inserta promedio de los elementos de la lista al final de la misma");
+        System.out.println("11. (TDA Lista) Inserta promedio de los elementos de la lista al final de la misma (recursivo)");
+        System.out.println("12. (TDA Lista) Agrega un producto a la lista");
+        System.out.println("13. Intercalar lista");
+        System.out.println("14. Generar cola AB#C#DEF --> ABBAAB#CCC#DEFFEDDEF");
+        System.out.println("15. Lista a cola.");
+
+    }
+
+    /**
+     *
+     * generarLista(Listalis): que recibe por parámetro una estructura de tipo
+     * Lista lis con elementos de tipo char que tiene el siguiente formato:
+     * a1a2a3...an, donde cada ai en una sucesión de letras mayúsculas y a
+     * partir de lis debe generar como salida otra Lista de la
+     * forma:a1a1”a1∗a2a2”a2∗....∗anan”an donde cada ai” es la secuencia de
+     * letras de ai invertida. Ejemplo: Si lis es AB*C*DEF, la operación
+     * generarOtraLista devolverá una Lista con el siguiente formato:
+     * ABBAAB*CCC*DEFFEDDEF NOTA: Para lograr los tramos invertidos de la Lista
+     * de salida debe utilizar una Pila auxiliar y para lograr los tramos no
+     * invertidos debe utilizar una Cola auxiliar.
+     */
     public static Lista generarLista(Lista lis) {
         Lista listX = new Lista();
         if (!lis.esVacia()) {
@@ -112,8 +221,9 @@ public class MixLineales {
     }
 
     /**
-     * concatenar: recibe dos listas L1 y L2 y devuelve una lista nueva con los elementos de L1 y L2 concatenados. 
-     * Ej: si L1=[2,4,6] y L2=[5,1,6,7] debe  devolver [2,4,6,5,1,6,7]
+     * concatenar: recibe dos listas L1 y L2 y devuelve una lista nueva con los
+     * elementos de L1 y L2 concatenados. Ej: si L1=[2,4,6] y L2=[5,1,6,7] debe
+     * devolver [2,4,6,5,1,6,7]
      */
     public static Lista concatenar(Lista L1, Lista L2) {
         Lista listaRes = new Lista();
@@ -136,9 +246,10 @@ public class MixLineales {
     }
 
     /**
-     * comprobar: recibe una lista L1 cargada con dígitos (números enteros de 0  a 9) 
-     * y verifica si los elementos que contiene tienen la forma cadena0cadena0cadena* (donde cadena* es cadena invertida). 
-     * Ej: si L1=[9,6,5,0,9,6,5,0,5,6,9], cadena=965, luego cadena*=569, entonces la
+     * comprobar: recibe una lista L1 cargada con dígitos (números enteros de 0
+     * a 9) y verifica si los elementos que contiene tienen la forma
+     * cadena0cadena0cadena* (donde cadena* es cadena invertida). Ej: si
+     * L1=[9,6,5,0,9,6,5,0,5,6,9], cadena=965, luego cadena*=569, entonces la
      * lista L1 cumple con la condición deseada. Atención: la longitud de cada
      * cadena no se conoce de antemano, hay que identificarla por la primera
      * posición de 0 en la lista. Nota: Utilizar una Pila y una Cola como
@@ -150,13 +261,19 @@ public class MixLineales {
         int pos = 1;
         Cola colaAux = new Cola();
         Pila pilaAux = new Pila();
-        int aux;
+        int aux, longitud = L1.longitud();
 
-        while (!L1.esVacia() && (int) L1.recuperar(pos) != 0) {
+        if (!L1.esVacia()) {
             aux = (int) L1.recuperar(pos);
-            colaAux.poner(aux);
-            pilaAux.apilar(aux);
-            pos++;
+            while (pos <= longitud && (int) L1.recuperar(pos) != 0) {
+
+                colaAux.poner(aux);
+                pilaAux.apilar(aux);
+                pos++;
+                if (pos <= longitud) {
+                    aux = (int) L1.recuperar(pos);
+                }
+            }
         }
         pos++;
         while (colaAux.obtenerFrente() == L1.recuperar(pos)) {
@@ -175,50 +292,211 @@ public class MixLineales {
 
         return res;
     }
-    
+
     /**
-     * invertir: recibe una lista L y devuelve una lista nueva con los elementos de L invertidos. 
-     * Ej: si L1=[2,4,6] debe devolver [6,4,2]
-    **/
-    public static Lista invertir(Lista L1){
+     * invertir: recibe una lista L y devuelve una lista nueva con los elementos
+     * de L invertidos. Ej: si L1=[2,4,6] debe devolver [6,4,2]
+     *
+     */
+    public static Lista invertir(Lista L1) {
         Lista invertida = new Lista(), listaAux;
         Pila pilaAux = new Pila();
         listaAux = L1.clone();
         int pos = 1;
-        
-        while(!listaAux.esVacia()){
+
+        while (!listaAux.esVacia()) {
             pilaAux.apilar(listaAux.recuperar(1));
             listaAux.eliminar(1);
         }
-        
-        while(!pilaAux.esVacia() && pos <= L1.longitud()){
+
+        while (!pilaAux.esVacia() && pos <= L1.longitud()) {
             invertida.insertar(pilaAux.obtenerTope(), pos);
             pilaAux.desapilar();
             pos++;
         }
-        
+
         return invertida;
     }
-    
+
     /**
-     * intercalar: dadas dos listas L1 y L2, devuelve una lista nueva con los elementos de L1 y L2 intercalados.
-     * Por ejemplo, si L1=[1,3,5] y L2=[2,4,6,7] debe devolver [1,2,3,4,5,6,7]
+     * intercalar: dadas dos listas L1 y L2, devuelve una lista nueva con los
+     * elementos de L1 y L2 intercalados. Por ejemplo, si L1=[1,3,5] y
+     * L2=[2,4,6] debe devolver [1,2,3,4,5,6]
      */
-    
-    public static Lista intercalar(Lista L1, Lista L2){
+    public static Lista intercalar(Lista L1, Lista L2) {
         Lista intercalada = new Lista();
-        
-        
-        
+        int elemL1, elemL2, cont = 1;
+
+        while (!L1.esVacia() && !L2.esVacia()) {
+
+            elemL1 = (int) L1.recuperar(1);
+            elemL2 = (int) L2.recuperar(1);
+
+            intercalada.insertar(elemL1, cont);
+            intercalada.insertar(elemL2, cont + 1);
+
+            L1.eliminar(1);
+            L2.eliminar(1);
+            cont = cont + 2;
+
+        }
         return intercalada;
     }
-    public static void menu() {
-        System.out.println("Ingrese una opción:");
-        System.out.println("1. Concatenar dos listas L1 y L2");
-        System.out.println("2. Comprobar que la lista cumpla con cadena0cadena0cadenaInvertida");
-        System.out.println("3. Invertir lista");
-        System.out.println("4. Generar lista de ABC --> ABCCBAABC");
-        System.out.println("5. Intercalar lista");
+
+    /*
+        Recibe por parámetro una estructura cola c1 que tiene el siguiente 
+        formato: a1#a2#a3#….#an, donde cada ai es una sucesión de letras 
+        mayúsculas y a partir de c1 debe generar como salida otra Cola de la 
+        forma: a1a1´a1#a2a2´a2#….#anan´an donde cada ai´ es la 
+        secuencia de letras mayúsculas ai pero invertida. Ejemplo.: Si c1 es : 
+        AB#C#DEF , entonces la operación generar devolverá una Cola con el 
+        siguiente formato: ABBAAB#CCC#DEFFEDDEF
+     */
+    public static Cola generarCola(Cola cola1) {
+        Cola salida = new Cola();
+        Cola clon = cola1.clone();
+        Cola cola2 = new Cola();
+        Pila pila1 = new Pila();
+        char aux;
+
+        while (!clon.esVacia()) {
+
+            while ((!clon.esVacia() && (char) clon.obtenerFrente() != '#')) {
+                aux = (char) clon.obtenerFrente();
+                salida.poner(aux);
+                pila1.apilar(aux);
+                cola2.poner(aux);
+                clon.sacar();
+            }
+
+            clon.sacar(); // saco el #
+            while (!pila1.esVacia()) {
+
+                salida.poner(pila1.obtenerTope());
+                pila1.desapilar();
+
+            }
+
+            while (!cola2.esVacia()) {
+
+                salida.poner(cola2.obtenerFrente());
+                cola2.sacar();
+            }
+
+            if (!clon.esVacia()) {
+                salida.poner('#');
+            }
+        }
+
+        return salida;
+    }
+    
+    /*
+    Metodo que recibe por parametro un numero entero t y una lista con una sucesion de caracteres char y, sin destruir la estructura
+    original, debe generar una Cola con la forma c1c1'c1'&&c2c2'c2'&&..cncn'cn' donde ci es una secuencia de t elementos tomados de 
+    la estructura original y cada ci' es la secuencia ci invertida. La ultima subcadena puede ser de longitud menor a t.
+    */
+    public static Cola listaToCola(Lista l1, int t) {
+        int cont = 0;
+        char elemento;
+        Cola salida = new Cola();
+        Lista clon = l1.clone();
+        Pila aux = new Pila();
+        Pila aux2;
+        while (!clon.esVacia()) {
+            while ((!clon.esVacia()) && (cont != t)) {
+
+                elemento = (char) clon.recuperar(1);
+                salida.poner(elemento);
+                aux.apilar(elemento);
+                clon.eliminar(1);
+                cont++;
+
+            }
+            cont = 0;
+            aux2 = aux.clone();
+
+            while (!aux.esVacia()) {
+                salida.poner(aux.obtenerTope());
+                aux.desapilar();
+
+            }
+            while (!aux2.esVacia()) {
+                salida.poner(aux2.obtenerTope());
+                aux2.desapilar();
+            }
+            if (!clon.esVacia()) {
+                salida.poner('&');
+                salida.poner('&');
+            }
+        }
+        return salida;
+    }
+    /*
+    Metodo que recibe por parametro una lista con elementos de tipo char, con el formato a1#a2#a3#...an# donde cada ai es una sucesion
+    de letras, y debe generar otra lista con la forma a1'a1#a2'a2#..an'an donde cada ai' es la secuencia de letras de ai invertida.
+    Ejemplo: Si la lista que entra es 
+    AB#C#DEF el metodo devolverá BAAB#CC#FEDDEF
+    */
+    public static Lista generarOtraLista(Lista l1) {
+        Lista salida = new Lista();
+        Cola aux2 = new Cola();
+        Pila aux = new Pila();
+        int pos = 1;
+        if (l1.esVacia()) {
+
+        } else {
+            Lista clon = l1.clone();
+            while (!clon.esVacia()) {
+                while (!clon.esVacia() && (char) clon.recuperar(1) != '#') {
+                    aux2.poner(clon.recuperar(1));
+                    aux.apilar(clon.recuperar(1));
+                    clon.eliminar(1);
+
+                }
+                //pila
+                clon.eliminar(1);
+                while (!aux.esVacia()) {
+                    salida.insertar(aux.obtenerTope(), pos);
+                    aux.desapilar();
+                    pos++;
+
+                }
+                //cola
+                while (!aux2.esVacia()) {
+                    salida.insertar(aux2.obtenerFrente(), pos);
+                    aux2.sacar();
+                    pos++;
+
+                }
+                if (aux.esVacia() && aux2.esVacia() && !clon.esVacia()) {
+                    salida.insertar('#', pos);
+                    pos++;
+
+                }
+
+            }
+        }
+        return salida;
     }
 
+    /*
+    Método que recibe por parámetro una cola con una expresión matemática y verifica que los paréntesis, corchetes y
+    llaves estén correctamente balanceados. Debe usar como estructura auxiliar alguno de los TDA lineales vistos.
+    Ejemplos: Si q es ← { 5 + [ 8 * 9 -( 4 / 2 ) + 7 ] -1 } ← el método debe devolver TRUE
+              Si q es ← { 5 + 8 * 9 -( 4 / 2 ) + 7 ] -1 } ← el método debe devolver FALSE
+     */
+    public boolean verificarBalanceo(Cola q) {
+        boolean res = false;
+        Cola colaAux = new Cola();
+        char elem;
+        
+        while(!q.esVacia()){
+            while(!q.esVacia() && (char) q.obtenerFrente() == '{'){
+                
+            }
+        }
+        
+        return res;
+    }
 }
