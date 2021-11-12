@@ -6,7 +6,6 @@ package TP6.CuartelSoldados;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-
 /**
  *
  * @author mausa

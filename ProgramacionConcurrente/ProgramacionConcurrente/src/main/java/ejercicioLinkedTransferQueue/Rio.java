@@ -25,7 +25,7 @@ public class Rio {
     private Semaphore sePuedeBajar = new Semaphore(0, true);
     private int cantAutosABordo = 0;
     private int cantLugares;
-    private boolean terminoViaje = false;
+
 
     public Rio(int cantLugares) {
         this.cantLugares = cantLugares;

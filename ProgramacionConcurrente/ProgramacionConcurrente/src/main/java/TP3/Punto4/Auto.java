@@ -20,8 +20,8 @@ public class Auto extends Vehiculo implements Runnable {
 
     public Auto(int kmParaAndar, int c, Surtidor surt) {
         super(kmParaAndar);
-        carga= c;
-        this.surt=surt;
+        carga = c;
+        this.surt = surt;
     }
 
     public int getCarga() {
@@ -42,15 +42,19 @@ public class Auto extends Vehiculo implements Runnable {
     
     
     public void run(){
-        for(int i=0; i<= 2;i++){
-            System.out.println(Thread.currentThread().getName()+" comienza a andar.");
-            int km= this.kmParaAndar;
-            for(int j=km; j>0; j--){
+        
+        for(int i = 0; i <= 2; i++){
+               System.out.println(Thread.currentThread().getName()+" comienza a andar.");
+                 int km = this.kmParaAndar;
+            
+            for(int j = km; j > 0; j--){
                 this.kmParaAndar--;
             }
+            
             System.out.println(Thread.currentThread().getName()+" se quedó sin nafta. Recorrió "+km+" kilometros");
+            
             try {
-                this.kmParaAndar= surt.cargarNafta(carga);
+                this.kmParaAndar = surt.cargarNafta(carga);
             } catch (InterruptedException ex) {
                 Logger.getLogger(Auto.class.getName()).log(Level.SEVERE, null, ex);
             }

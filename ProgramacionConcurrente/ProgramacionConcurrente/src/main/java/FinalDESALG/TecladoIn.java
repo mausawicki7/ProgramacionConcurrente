@@ -1,6 +1,7 @@
-package utiles;
+package FinalDESALG;
 
-import TPExcepciones.*;
+
+
 import java.io.*;
 import java.util.*;
 
@@ -18,10 +19,10 @@ public class TecladoIn	{
     /**
      Reads a line of text and returns that line as a String
      value. The end of a line must be indicated either by a
-     new-line character '\n' or by a carriage return '\r'
-     followed by a new-line character '\n'. (Almost all systems
+     new-line character '\n ' or by a carriage return '\r '
+     followed by a new-line character '\n '. (Almost all systems
      do this automatically. So you need not worry about this
-     detail.) Neither the '\n', nor the '\r' if present, are
+     detail.) Neither the '\n ', nor the '\r ' if present, are
      part of the string returned. This will read the rest of a
      line if the line is already partially read.
     */

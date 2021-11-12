@@ -3,6 +3,9 @@
  */
 package TP6.SalaMuseo;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  *
  * @author mausa
@@ -21,8 +24,16 @@ public class Persona implements Runnable {
     
     public void run(){
         this.sala.entrarSala();
-        this.sala.recorrerMuseo();
+        this.recorrerMuseo();
         this.sala.salirSala();
         
+    }
+    
+        public void recorrerMuseo(){
+        try {
+            Thread.sleep(2500);
+        } catch (InterruptedException ex) {
+            Logger.getLogger(GestorDeSala.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 }

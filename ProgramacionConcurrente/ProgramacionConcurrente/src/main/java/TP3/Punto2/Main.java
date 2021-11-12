@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package TP3.Punto2;
 
 /**
@@ -10,19 +5,26 @@ package TP3.Punto2;
  * @author mausa
  */
 public class Main {
-    
-    public static void main(String [] args){
+
+    public static void main(String[] args) {
+
         Jugador player = new Jugador();
-        Orco orco = new Orco(player);
-        Curandero curandero = new Curandero(player);
-        
-        Thread o1 = new Thread(orco);
-        Thread c1 = new Thread(curandero);
-        
-        o1.start();
-        c1.start();
-              
-    
-}
-    
+
+        Thread[] hiloOrcos = new Thread[4];
+        Thread[] hiloCurandero = new Thread[2];
+
+        for (int i = 0; i < hiloOrcos.length; i++) {
+            Orco unOrco = new Orco(player, "Orco "+i); 
+            hiloOrcos[i] = new Thread(unOrco);
+            hiloOrcos[i].start();
+        }
+
+        for (int i = 0; i < hiloCurandero.length; i++) {
+            Curandero unCurandero = new Curandero(player, "Curandero "+i);
+            hiloCurandero[i] = new Thread(unCurandero);
+            hiloCurandero[i].start();
+        }
+
+    }
+
 }

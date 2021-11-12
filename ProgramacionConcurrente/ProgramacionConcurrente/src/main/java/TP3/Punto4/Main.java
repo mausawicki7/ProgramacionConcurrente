@@ -16,7 +16,7 @@ public class Main {
         Surtidor surt= new Surtidor();
         
         for(int i=0;i<=4;i++){
-            autos[i]= new Thread(new Auto((i+1)*100,(i+1)*50,surt),"Auto "+i);
+            autos[i]= new Thread(new Auto((i+1)*100, (i+1)*50, surt),"Auto "+i);
         }
         for(int i=0; i<=4;i++){
             autos[i].start();

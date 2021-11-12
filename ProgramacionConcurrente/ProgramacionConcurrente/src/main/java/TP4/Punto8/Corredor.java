@@ -1,9 +1,6 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package TP4.Punto8;
+
+import java.util.Random;
 
 /**
  *
@@ -11,24 +8,35 @@ package TP4.Punto8;
  */
 public class Corredor implements Runnable {
 
-    private int num;
+    private int turno;
     private Testigo testigo;
 
     public Corredor(int num, Testigo t) {
-        this.num = num;
+        this.turno = num;
         this.testigo = t;
     }
 
     @Override
     public void run() {
-        double tiempo = 9 + Math.random() * 2;
-        switch (num) {
-            case 1 -> testigo.aCorrer1(tiempo);
-            case 2 -> testigo.aCorrer2(tiempo);
-            case 3 -> testigo.aCorrer3(tiempo);
-            case 4 -> testigo.aCorrer4(tiempo);
-            default -> System.out.println("Numero no válido.");
+
+        //Si es mi turno, empezar a correr
+        this.testigo.empezarACorrer(turno);
+        this.correr();
+        this.testigo.terminarDeCorrer(turno);
+
+    }
+
+    private void correr() {
+        Random r = new Random();
+        long tiempoF, tiempoInicial = System.currentTimeMillis() / 1000;
+        try {
+            System.out.println(Thread.currentThread().getName() + " empezó a correr!" + " arranca en " + tiempoInicial );
+            Thread.sleep((r.nextInt(2) + 9) * 200);
+            tiempoF = System.currentTimeMillis() / 1000;
+            System.out.println(Thread.currentThread().getName() + " Finalizo carrera con tiempo -->" + (tiempoF - tiempoInicial) + " segundos");
+        } catch (Exception e) {
         }
+
     }
 
 }

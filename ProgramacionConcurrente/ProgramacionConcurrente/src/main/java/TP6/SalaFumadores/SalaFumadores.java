@@ -28,9 +28,7 @@ public class SalaFumadores {
         this.notifyAll();       
     }
     
-    
-    
-  
+
     public synchronized void entraFumar(int idFumador) throws InterruptedException{
         while(fumando || idFumador != turno){ //Si hay alguien fumando o el turno (que es unIngrediente) != idFumador
             System.out.println("Soy el fumador "+idFumador+" aun no puedo fumar.");

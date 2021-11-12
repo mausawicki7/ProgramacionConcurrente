@@ -21,13 +21,17 @@ public class MedidorTemperatura implements Runnable {
 
     @Override
     public void run() {
+
+        while (true) {
+            var = (int) (Math.random() * 10 + 25);
+            this.unGestor.notificarTemperatura(var);
+            this.standBy();
+        }
+    }
+
+    public void standBy() {
         try {
-            while (true) {
-                var = (int) (Math.random() * 10 + 25);
-                this.unGestor.notificarTemperatura(var);
-                
-                Thread.sleep(1000);
-            }
+            Thread.sleep(2000);
         } catch (InterruptedException ex) {
             Logger.getLogger(MedidorTemperatura.class.getName()).log(Level.SEVERE, null, ex);
         }

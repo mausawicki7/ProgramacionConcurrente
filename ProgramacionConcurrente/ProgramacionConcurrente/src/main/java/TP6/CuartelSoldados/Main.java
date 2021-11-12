@@ -15,10 +15,10 @@ public class Main {
 
         int cantSoldados = 12;
         int cantBandejas = 4;
-        int cantDestapadores = 1;
+        int cantDestapadores = 10;
         int cantPostres = 1;
         int cantMostradores = 5;
-        //public Cuartel(int capMax, int cantBandejas, int cantAbridores, int cantPostres) {
+        
         Cuartel cuartel = new Cuartel(cantMostradores, cantBandejas, cantPostres, cantDestapadores);
 
         for (int i = 1; i <= cantSoldados; i++) {

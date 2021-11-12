@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package TP3.Punto2;
 
 /**
@@ -11,13 +6,16 @@ package TP3.Punto2;
  */
 public class Curandero implements Runnable {
     private Jugador objetivo;
+    private String nombre;
     
-    public Curandero(Jugador player){
+    public Curandero(Jugador player, String nom){
         objetivo = player;
+        this.nombre = nom;
     }
     
+    @Override
     public void run(){
         int vida = objetivo.getVida();
-        objetivo.setVida(vida + 3);
+        objetivo.setVida(vida + 3, nombre);
     }
 }

@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package TP5.TrenTuristico;
 
 import java.util.concurrent.Semaphore;
@@ -62,7 +57,7 @@ public class Tren {
             capacidadActual++;
             
             //Hay 5 asientos en el tren, si se llenan los 5, el control del tren le indica a este que puede arrancar.
-            if (this.capacidadActual % 5 == 0) {
+            if (this.capacidadActual % capacidadMaxima == 0) {
 
                 control.release();
 

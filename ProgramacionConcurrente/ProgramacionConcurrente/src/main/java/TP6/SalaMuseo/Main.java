@@ -3,9 +3,6 @@
  */
 package TP6.SalaMuseo;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
 /**
  *
  * @author mausa
@@ -14,9 +11,9 @@ public class Main {
 
     public static void main(String[] args) {
 
-        int jubilados = 5;
+        int jubilados = 15;
 
-        GestorDeSala sala = new GestorDeSala(10);
+        GestorDeSala sala = new GestorDeSala(50);
 
         MedidorTemperatura h = new MedidorTemperatura(sala);
         Thread h1 = new Thread(h);
@@ -28,7 +25,7 @@ public class Main {
             hiloJubilados.start();
         }
         
-        for (int i = 1; i <= 10; i++) {
+        for (int i = 1; i <= 45; i++) {
             Persona p = new Persona(sala, "Persona " + i);
             Thread hiloPersonas = new Thread(p, "Persona " + i);
             hiloPersonas.start();

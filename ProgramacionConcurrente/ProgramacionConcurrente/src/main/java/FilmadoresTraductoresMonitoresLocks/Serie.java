@@ -6,8 +6,8 @@ package FilmadoresTraductoresMonitoresLocks;
 import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
-import EstructurasDinamicas.ColaDinamica;
-import EstructurasLineales.Lista;
+import EstructurasLineales.dinamicas.*;
+
 
 /**
  *
@@ -21,7 +21,7 @@ public class Serie {
     private Condition traductores = mutex.newCondition();
     private Condition esperaVerCastellano = mutex.newCondition();
     private Condition esperaVerIngles = mutex.newCondition();
-    private ColaDinamica cola = new ColaDinamica();
+    private Cola cola = new Cola();
     private Lista listaCastellano = new Lista();
     private Lista listaIngles = new Lista();
 

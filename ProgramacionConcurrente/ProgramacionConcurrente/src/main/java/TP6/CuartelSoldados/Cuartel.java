@@ -56,7 +56,7 @@ public class Cuartel {
     }
 
     public void salir() {
-        System.out.println(Thread.currentThread().getName() + " salío del cuartel.");
+        System.out.println(Thread.currentThread().getName() + " salió del cuartel.");
         this.semEntrada.release();
     }
 

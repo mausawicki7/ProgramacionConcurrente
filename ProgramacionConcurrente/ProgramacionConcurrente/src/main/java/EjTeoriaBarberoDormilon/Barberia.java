@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package EjTeoriaBarberoDormilon;
 
 import java.util.concurrent.Semaphore;
@@ -16,7 +11,7 @@ import java.util.logging.Logger;
 public class Barberia {
 
     //Lo mas recomendable es que la sincronizacion la haga el recurso compartido
-    //Como en este caso al Barberia es el recurso compartido entre el Barbero y el Cliente y aqui tengo los semaforos
+    //Como en este caso la Barberia es el recurso compartido entre el Barbero y el Cliente, pongo aca los semaforos
     Semaphore semSillon;
     Semaphore semBarbero;
     Semaphore semCliente;
@@ -42,19 +37,21 @@ public class Barberia {
         System.out.println("------------- soy " + nombreCliente + " estoy entrando.");
         try {
             // SECCION CRITICA
+            //El hilo que entra adquiere el derecho de acceso
             mutexSillas.acquire();
             //El cliente verifica si hay sillas libres
             if (sillasLibres > 0) {
                 //Ocupa una silla
                 sillasLibres--;
                 pudeEntrar = true;
-            }else{
-                System.out.println("Soy "+nombreCliente+" no encontre sillas disponibles para sentarme. ME VOY!");
+                System.out.println("Soy " + nombreCliente + " ya me senté.");
+            } else {
+                System.out.println("Soy " + nombreCliente + " no encontre sillas disponibles para sentarme. ME VOY!");
             }
         } catch (InterruptedException ex) {
             Logger.getLogger(Barberia.class.getName()).log(Level.SEVERE, null, ex);
         }
-
+        //Cuando el hilo finaliza sus tareas libera el derecho de acceso
         mutexSillas.release();
         return (pudeEntrar);
     }
@@ -63,15 +60,14 @@ public class Barberia {
         try {
             // SECCION CRITICA
             semSillon.acquire();
-            mutexSillas.acquire(); 
+            mutexSillas.acquire();
             sillasLibres++;
             mutexSillas.release();
-            
-            
+
             System.out.println("Soy " + nombreCliente + " necesito un corte de pelo. Voy a despertar al barbero.");
             semBarbero.release();
             semCliente.acquire();
-            
+
         } catch (InterruptedException ex) {
             Logger.getLogger(Barberia.class.getName()).log(Level.SEVERE, null, ex);
         }

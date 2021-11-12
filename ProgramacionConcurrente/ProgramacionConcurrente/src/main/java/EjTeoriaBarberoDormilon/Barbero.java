@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package EjTeoriaBarberoDormilon;
 
 /**
@@ -41,7 +36,7 @@ public class Barbero extends Persona implements Runnable {
             this.atender();        
             miBarberia.terminarAtencion();
             cuantos++;
-            System.out.println("Atendi a "+cuantos+" clientes.");
+            System.out.println("Soy el barbero atendi a "+cuantos+" clientes.");
         }
     }
     
