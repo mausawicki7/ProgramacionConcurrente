@@ -14,8 +14,25 @@ public class MixLineales {
         boolean resMod;
         Lista lista0 = new Lista(), lista1 = new Lista(), lista2 = new Lista(), lista3 = new Lista(), lista4 = new Lista();
         Lista listaRes;
+        Pila miPila = new Pila();
 
         Cola q = new Cola(), colaRes;
+
+        miPila.apilar('D');
+        miPila.apilar('B');
+        miPila.apilar('E');
+        miPila.apilar('&');
+        miPila.apilar('F');
+        miPila.apilar('E');
+        miPila.apilar('D');
+        miPila.apilar('&');
+        miPila.apilar('E');
+        miPila.apilar('A');
+        miPila.apilar('C');
+        miPila.apilar('&');
+        miPila.apilar('B');
+        miPila.apilar('A');
+
         q.poner('A');
         q.poner('B');
         q.poner('#');
@@ -29,17 +46,22 @@ public class MixLineales {
 
         //LISTA 0
         lista0.insertar(1, 1);
-        lista0.insertar(3, 2);
-        lista0.insertar(5, 3);
-        lista0.insertar(7, 4);
-        lista0.insertar(9, 5);
+        lista0.insertar(7, 2);
+        lista0.insertar(6, 3);
+        lista0.insertar(1, 4);
+        lista0.insertar(4, 5);
+        lista0.insertar(1, 6);
+        lista0.insertar(9, 7);
 
         //LISTA 1
-        lista1.insertar(2, 1);
-        lista1.insertar(4, 2);
-        lista1.insertar(6, 3);
-        lista1.insertar(8, 4);
-        lista1.insertar(10, 5);
+        lista1.insertar(8, 1);
+        lista1.insertar(1, 2);
+        lista1.insertar(7, 3);
+        lista1.insertar(6, 4);
+        lista1.insertar(1, 5);
+        lista1.insertar(4, 6);
+        lista1.insertar(1, 7);
+        lista1.insertar(9, 8);
 
         //LISTA 2
         lista2.insertar(5, 1);
@@ -51,6 +73,9 @@ public class MixLineales {
         lista3.insertar('A', 1);
         lista3.insertar('B', 2);
         lista3.insertar('C', 3);
+        lista3.insertar('D', 4);
+        lista3.insertar('E', 5);
+        lista3.insertar('F', 6);
 
         //LISTA 4
         lista4.insertar(9, 1);
@@ -68,9 +93,9 @@ public class MixLineales {
         System.out.println("Listas cargadas");
         System.out.println("Lista 1: " + lista1.toString());
         System.out.println("Lista 2: " + lista2.toString());
-        System.out.println("-----------------------------------------------------------------");
+        System.out.println("------------------------------------------------------------------------");
         menu();
-        System.out.println("-----------------------------------------------------------------");
+        System.out.println("------------------------------------------------------------------------");
         opc = TecladoIn.readLineInt();
 
         switch (opc) {
@@ -94,22 +119,20 @@ public class MixLineales {
                 break;
             case 6:
                 System.out.println("Lista 3: " + lista3.toString());
-                System.out.println("Lista retorno: " + lista3.obtenerMultiplos(3).toString());
+                System.out.println("Lista retorno: " + lista3.obtenerMultiplos(1).toString());
                 break;
             case 5:
                 System.out.println("Lista 3: " + lista3.toString());
-                lista3.eliminarApariciones('B');
-                lista3.eliminarApariciones('G');
+                lista3.eliminarApariciones('A');
                 System.out.println("Lista 3 con el elemento eliminado: " + lista3.toString());
                 break;
             case 7:
                 System.out.println("Lista 2: " + lista2.toString());
-                Object elemento = "asd";
+                Object elemento = 0;
                 lista2.agregarElem(elemento, 2);
                 System.out.println("Lista 2 con agregarElem: " + lista2.toString());
                 break;
             case 8:
-
                 System.out.println("Secuencia: " + nueva.generarSecuencia(q, 1));
                 break;
             case 9:
@@ -142,33 +165,121 @@ public class MixLineales {
                 System.out.println(colaRes.toString());
                 break;
             case 15:
-                System.out.println("Lista 3: "+lista3.toString());
-                colaRes = listaToCola(lista3, 1);
+                System.out.println("Lista 3: " + lista3.toString());
+                colaRes = listaToCola(lista3, 3);
                 System.out.println("Cola respuesta:");
                 System.out.println(colaRes.toString());
                 break;
+            case 16:
+                System.out.println("Lista 0: " + lista0.toString());
+                lista0.insertarPosterior(1, 3);
+                System.out.println("Lista 0 con posterior insertado: " + lista0.toString());
+
+                System.out.println("Lista 1: " + lista1.toString());
+                lista1.insertarPosterior(1, 3);
+                System.out.println("Lista 1 con posterior insertado: " + lista1.toString());
+                break;
+            case 17:
+                System.out.println("Pila: " + miPila);
+                listaRes = armarLista(miPila);
+                System.out.println("Lista " + listaRes);
+                break;
+
         }
 
     }
 
     public static void menu() {
         System.out.println("Ingrese una opción:");
-        System.out.println("1. Concatenar dos listas L1 y L2");
-        System.out.println("2. Comprobar que la lista cumpla con cadena0cadena0cadenaInvertida");
-        System.out.println("3. Invertir lista");
-        System.out.println("4. Generar lista de ABC --> ABCCBAABC");
-        System.out.println("5. (TDA Lista) Elimina de la lista todas las apariciones de elementos iguales a x");
-        System.out.println("6. (TDA Lista) Obtener multiplos");
-        System.out.println("7. (TDA Lista) Agregar elemento y repetirlo cada x posiciones");
-        System.out.println("8. (TDA Lista) Generar secuencia");
-        System.out.println("9. (TDA Lista) Generar secuencia 2");
-        System.out.println("10. (TDA Lista) Inserta promedio de los elementos de la lista al final de la misma");
-        System.out.println("11. (TDA Lista) Inserta promedio de los elementos de la lista al final de la misma (recursivo)");
-        System.out.println("12. (TDA Lista) Agrega un producto a la lista");
-        System.out.println("13. Intercalar lista");
-        System.out.println("14. Generar cola AB#C#DEF --> ABBAAB#CCC#DEFFEDDEF");
-        System.out.println("15. Lista a cola.");
+        System.out.println("1. (Uso de TDA) Concatenar dos listas L1 y L2");
+        System.out.println("2. (Uso de TDA) Comprobar que la lista cumpla con cadena0cadena0cadenaInvertida");
+        System.out.println("3. (Uso de TDA) Invertir lista");
+        System.out.println("4. (Uso de TDA) Generar lista de ABC --> ABCCBAABC");
+        System.out.println("5. (Metodo TDA) Elimina de la lista todas las apariciones de elementos iguales a x");
+        System.out.println("6. (Metodo TDA) Obtener multiplos");
+        System.out.println("7. (Metodo TDA) Agregar elemento y repetirlo cada x posiciones");
+        System.out.println("8. (Metodo TDA) Generar secuencia");
+        System.out.println("9. (Metodo TDA) Generar secuencia 2");
+        System.out.println("10. (Metodo TDA) Inserta promedio de los elementos de la lista al final de la misma");
+        System.out.println("11. (Metodo TDA) Inserta promedio de los elementos de la lista al final de la misma (recursivo)");
+        System.out.println("12. (Metodo TDA) Agrega un producto a la lista");
+        System.out.println("13. (Uso de TDA) Intercalar lista");
+        System.out.println("14. (Uso de TDA) Generar cola AB#C#DEF --> ABBAAB#CCC#DEFFEDDEF");
+        System.out.println("15. (Uso de TDA) Lista a cola.");
+        System.out.println("16. Insertar Posterior");
+        System.out.println("17. armarLista");
 
+    }
+
+    public static Lista armarLista(Pila pila1) {
+        Lista res = new Lista();
+        Pila pilaAux = new Pila();
+        int pos = 1;
+        int cont = 1;
+
+        while (!pila1.esVacia()) {
+            while (!pila1.esVacia() && (char) pila1.obtenerTope() != '&') {
+                    res.insertar(pila1.obtenerTope(), pos);
+                    pila1.desapilar();
+                    pos++;     
+            }
+            cont++;
+            pila1.desapilar(); // saco el &
+            
+            if(cont % 2 !=0){
+                
+            }
+        }
+
+        return res;
+    }
+
+    /*
+        Recibe por parámetro una estructura cola c1 que tiene el siguiente 
+        formato: a1#a2#a3#….#an, donde cada ai es una sucesión de letras 
+        mayúsculas y a partir de c1 debe generar como salida otra Cola de la 
+        forma: a1a1´a1#a2a2´a2#….#anan´an donde cada ai´ es la 
+        secuencia de letras mayúsculas ai pero invertida. Ejemplo.: Si c1 es : 
+        AB#C#DEF , entonces la operación generar devolverá una Cola con el 
+        siguiente formato: ABBAAB#CCC#DEFFEDDEF
+     */
+    public static Cola generarCola(Cola cola1) {
+        Cola salida = new Cola();
+        Cola clon = cola1.clone();
+        Cola cola2 = new Cola();
+        Pila pila1 = new Pila();
+        char aux;
+
+        while (!clon.esVacia()) {
+
+            while ((!clon.esVacia() && (char) clon.obtenerFrente() != '#')) {
+                aux = (char) clon.obtenerFrente();
+                salida.poner(aux);
+                pila1.apilar(aux);
+                cola2.poner(aux);
+                clon.sacar();
+            }
+
+            clon.sacar(); // saco el #
+            while (!pila1.esVacia()) {
+
+                salida.poner(pila1.obtenerTope());
+                pila1.desapilar();
+
+            }
+
+            while (!cola2.esVacia()) {
+
+                salida.poner(cola2.obtenerFrente());
+                cola2.sacar();
+            }
+
+            if (!clon.esVacia()) {
+                salida.poner('#');
+            }
+        }
+
+        return salida;
     }
 
     /**
@@ -344,58 +455,10 @@ public class MixLineales {
     }
 
     /*
-        Recibe por parámetro una estructura cola c1 que tiene el siguiente 
-        formato: a1#a2#a3#….#an, donde cada ai es una sucesión de letras 
-        mayúsculas y a partir de c1 debe generar como salida otra Cola de la 
-        forma: a1a1´a1#a2a2´a2#….#anan´an donde cada ai´ es la 
-        secuencia de letras mayúsculas ai pero invertida. Ejemplo.: Si c1 es : 
-        AB#C#DEF , entonces la operación generar devolverá una Cola con el 
-        siguiente formato: ABBAAB#CCC#DEFFEDDEF
-     */
-    public static Cola generarCola(Cola cola1) {
-        Cola salida = new Cola();
-        Cola clon = cola1.clone();
-        Cola cola2 = new Cola();
-        Pila pila1 = new Pila();
-        char aux;
-
-        while (!clon.esVacia()) {
-
-            while ((!clon.esVacia() && (char) clon.obtenerFrente() != '#')) {
-                aux = (char) clon.obtenerFrente();
-                salida.poner(aux);
-                pila1.apilar(aux);
-                cola2.poner(aux);
-                clon.sacar();
-            }
-
-            clon.sacar(); // saco el #
-            while (!pila1.esVacia()) {
-
-                salida.poner(pila1.obtenerTope());
-                pila1.desapilar();
-
-            }
-
-            while (!cola2.esVacia()) {
-
-                salida.poner(cola2.obtenerFrente());
-                cola2.sacar();
-            }
-
-            if (!clon.esVacia()) {
-                salida.poner('#');
-            }
-        }
-
-        return salida;
-    }
-    
-    /*
     Metodo que recibe por parametro un numero entero t y una lista con una sucesion de caracteres char y, sin destruir la estructura
     original, debe generar una Cola con la forma c1c1'c1'&&c2c2'c2'&&..cncn'cn' donde ci es una secuencia de t elementos tomados de 
     la estructura original y cada ci' es la secuencia ci invertida. La ultima subcadena puede ser de longitud menor a t.
-    */
+     */
     public static Cola listaToCola(Lista l1, int t) {
         int cont = 0;
         char elemento;
@@ -432,12 +495,13 @@ public class MixLineales {
         }
         return salida;
     }
+
     /*
     Metodo que recibe por parametro una lista con elementos de tipo char, con el formato a1#a2#a3#...an# donde cada ai es una sucesion
     de letras, y debe generar otra lista con la forma a1'a1#a2'a2#..an'an donde cada ai' es la secuencia de letras de ai invertida.
     Ejemplo: Si la lista que entra es 
     AB#C#DEF el metodo devolverá BAAB#CC#FEDDEF
-    */
+     */
     public static Lista generarOtraLista(Lista l1) {
         Lista salida = new Lista();
         Cola aux2 = new Cola();
@@ -490,13 +554,13 @@ public class MixLineales {
         boolean res = false;
         Cola colaAux = new Cola();
         char elem;
-        
-        while(!q.esVacia()){
-            while(!q.esVacia() && (char) q.obtenerFrente() == '{'){
-                
+
+        while (!q.esVacia()) {
+            while (!q.esVacia() && (char) q.obtenerFrente() == '{') {
+
             }
         }
-        
+
         return res;
     }
 }

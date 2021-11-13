@@ -1,6 +1,6 @@
 package tests.jerarquicas;
 
-import jerarquicas.ArbolGen;
+import jerarquicas.dinamicas.ArbolGen;
 
 public class TestGenerico {
     

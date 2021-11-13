@@ -1,4 +1,6 @@
-package lineales.dinamicas;
+package TPFinalEDAT2021.Estructuras;
+
+import lineales.dinamicas.*;
 
 /**
  *
@@ -206,114 +208,11 @@ public class Lista {
     }
 
 
-    public Lista obtenerMultiplos(int num) {
-        Lista lista = new Lista();
-        Object elemento;
-        //hago que sig apunte al mismo nodo que esta apuntando la cabecera de la lista
-        Nodo sig = this.cabecera;
-        Nodo mult = null;
-        int i = 1;
-        while (sig != null) {
-            elemento = sig.getElem();
-            if (elemento.equals(num)) {
-                // se ejecuta la primer vez esto
-                mult = new Nodo(elemento, null);
-                lista.cabecera = mult;
-            } else if (i % num == 0) {
-                mult.setEnlace(new Nodo(elemento, null));
-                mult = mult.getEnlace();
-            }
-            sig = sig.getEnlace();
-            i++;
-        }
-        return lista;
-    }
-    
-        public Lista obtenerMultiplos2(int num) {
-        Lista nueva = new Lista();
-        int c = 1;
-        Nodo aux = this.cabecera, aux2 = null;
-
-        if (num != 0) {
-            while (aux != null) {
-                if ((c % (num)) == 0) {
-                    if (nueva.cabecera == null) {
-                        Nodo nuevo = new Nodo(aux.getElem(), null);
-                        nueva.cabecera = nuevo;
-                        nueva.longitud++;
-                        aux2 = nueva.cabecera;
-                    } else {
-                        Nodo nuevo = new Nodo(aux.getElem(), null);
-                        aux2.setEnlace(nuevo);
-                        nueva.longitud++;
-                        aux2 = aux2.getEnlace();
-                    }
-                }
-                aux = aux.getEnlace();
-                c++;
-            }
-        }
-
-        return nueva;
-    }
-    
-    //Recorre una unica vez la lista y elimina todas las apariciones de elementos iguales a x
-    public void eliminarApariciones(Object x) {
-        if (this.cabecera != null) {
-            //Creo puntero sig que apunta al mismo nodo que esta apuntando la cabecera de la lista
-            Nodo sig = this.cabecera;
-            Nodo ant = null;
-            this.cabecera = null;
-            Object elemento;
-            //Mientras sigan habiendo nodos en la lista
-            while (sig != null) {
-                //Voy guardando el elem del nodo en la variable elemento
-                elemento = sig.getElem();
-                //Si el elemento no es igual al enviado por parametro
-                if (!elemento.equals(x)) {
-                    //Caso de que la cabecera este vacia
-                    if (this.cabecera == null) {
-                        //Creo un nuevo nodo ant y le guardo el elemento
-                        ant = new Nodo(elemento, null);
-                        this.cabecera = ant;
-                        //Caso de que la cabecera contenga un elemento
-                    } else {
-                        ant.setEnlace(new Nodo(elemento, null));
-                        ant = ant.getEnlace();
-                    }
-                    //Si el elemento es igual al enviado por parametro decremento en 1 la longitud de la lista
-                } else {
-                    this.longitud--;
-                }
-                //Avance al siguiente nodo
-                sig = sig.getEnlace();
-            }	
-        }
-    }
-    
-    //Agrega el elemento "nuevo" a la Lista en la primera posición y luego
-    //lo repite cada "x" posiciones
-    public void agregarElem(Object nuevo, int x) {
-        if (this.longitud > 0) {
-            Nodo aux = new Nodo(nuevo, this.cabecera);
-            this.cabecera = aux;
-            this.longitud += this.longitud % x;
-            int valor = 0;
-            while (aux != null) {
-                if (valor == x ) {
-                    Nodo aux2 = new Nodo(nuevo, aux.getEnlace());
-                    aux.setEnlace(aux2);
-                    this.longitud++;
-                    valor = 0;
-                } else {
-                    valor++;
-                }
-                aux = aux.getEnlace();
-            }
-        }
-    }
-    
-        public Lista generarSecuencia(Cola q, int t) {
+    /*
+     * Recibe una cola y genera una secuencia en una lista repitiendo 2 veces
+     * cada elemento de la cola separandolos por 2 numerales
+     */
+    public Lista generarSecuencia(Cola q, int t) {
         Cola cola = q.clone();
         Lista lista = new Lista();
         Object elemento;
@@ -322,23 +221,22 @@ public class Lista {
             i += 2;
             elemento = cola.obtenerFrente();
             lista.insertar(elemento, r);
-            lista.insertar(elemento, i);   
-            
+            lista.insertar(elemento, i);
+
             cola.sacar();
-            
+
             if (x % t == 0 && !cola.esVacia()) {
                 i++;
                 lista.insertar('#', i);
                 lista.insertar('#', i++);
-                
+
                 r = i + 1;
             }
             x++;
         }
         return lista;
     }
-        
-    
+
     public static Lista generarSecuenciaExpress(Cola q, int t) {
         Cola cola = q.clone();
         Lista lista = new Lista();
@@ -349,8 +247,9 @@ public class Lista {
         while (!cola.esVacia()) {
             pila.apilar(cola.obtenerFrente());
             cola.sacar();
-            if (i % t == 0 && !cola.esVacia())
+            if (i % t == 0 && !cola.esVacia()) {
                 pila.apilar('#');
+            }
             i++;
         }
         while (!pila.esVacia()) {
@@ -375,7 +274,9 @@ public class Lista {
         return lista;
     }
 
-
+    /*
+    Inserta el promedio de todos los numeros de la lista en la ultima posicion de la lista
+     */
     public void insertarPromedio() {
         int res = 0;
         Nodo aux = this.cabecera, nuevo;
@@ -440,8 +341,124 @@ public class Lista {
         nuevo = new Nodo(res, null);
         aux.setEnlace(nuevo);
         this.longitud++;
-    }    
-    
-    
-}
+    }
 
+    /**
+     * Metodo obtenerMultiplos() Recibe un número y devuelve una lista nueva que
+     * contiene todos los elementos de las posiciones múltiplos de num, en el
+     * mismo orden encontrado- Ejemplo: Entrada: <A, B, C, D, E, F, G, H, I, J>
+     * Salida: <C, F, I>
+     *
+     * @ Recibe num
+     * @ Retorna lista
+     */
+    public Lista obtenerMultiplos(int num) {
+        int cont = 1;
+        Lista nueva = new Lista();
+
+        Nodo aux2 = null;
+        Nodo aux = this.cabecera;
+
+        if (aux != null) {
+            while (aux != null) {
+                if (cont % num == 0) {
+
+                    //caso especial de insertar el primer elemento en la lista nueva
+                    if (nueva.cabecera == null) {
+                        nueva.cabecera = new Nodo(aux.getElem(), null);
+                        aux2 = nueva.cabecera;
+
+                    } else {
+                        Nodo nuevo = new Nodo(aux.getElem(), null);
+                        aux2.setEnlace(nuevo);
+                        aux2 = aux2.getEnlace();
+                        nueva.longitud++;
+                    }
+
+                }
+                cont++;
+                aux = aux.getEnlace();
+            }
+        }
+        return nueva;
+    }
+
+    //Recorre una unica vez la lista y elimina todas las apariciones de elementos iguales a x
+    public void eliminarApariciones(Object x) {
+        Nodo aux = this.cabecera;
+        if (aux != null) {
+            if (this.cabecera.getElem().equals(x)) {
+                this.cabecera = aux.getEnlace();
+                if (aux.getEnlace() != null) {
+                    aux = aux.getEnlace();
+                }
+
+                while (aux.getEnlace() != null) {
+                    if (aux.getEnlace().getElem().equals(x)) {
+                        aux.setEnlace(aux.getEnlace().getEnlace());
+                    } else {
+                        aux = aux.getEnlace();
+                    }
+                }
+            }
+        }
+    }
+
+    //Agrega el elemento "nuevo" a la Lista en la primera posición y luego
+    //lo repite cada "x" posiciones
+    public void agregarElem(Object nuevo, int x) {
+        //nuevo nodoNuevo
+        //x=2 posicion que quiero agregar el nuevo elem
+        int cont = 0;
+        Nodo sig = new Nodo(null, null);
+
+        if (this.cabecera != null) {
+            Nodo nodoNuevo = new Nodo(nuevo, null);
+            //agrego el nodoNuevo y enlazo todo 
+            this.cabecera = new Nodo(nuevo, this.cabecera);
+
+            Nodo aux = this.cabecera;
+            while (aux.getEnlace() != null) {
+                aux = aux.getEnlace();
+                cont++;
+                if (cont == x) {
+                    sig = aux.getEnlace(); //6 
+                    aux.setEnlace(nodoNuevo);
+                    nodoNuevo.setEnlace(sig);
+                    cont = 0;
+                    aux = aux.getEnlace();
+                }
+            }
+        }
+    }
+
+    /*
+    Agregar al TDA Lista la operación insertarPosterior(valor1, valor2) que busca todas las apariciones de valor1 en la lista,
+    e inserta un nodo con valor2 en la posición posterior. Si valor1 está en posición 1, debe insertar a valor2 antes y después
+    de valor1.
+    */
+    public void insertarPosterior(Object valor1, Object valor2) {
+        
+        if (this.cabecera != null) {
+            Nodo aux = this.cabecera;
+            if (aux.getElem().equals(valor1)) {   //caso especial que este en la pos1
+                this.cabecera = new Nodo(valor2, this.cabecera);
+                
+                Nodo nuevo = new Nodo(valor2, aux.getEnlace());
+                aux.setEnlace(nuevo);
+                aux = aux.getEnlace().getEnlace();
+            }
+
+            while (aux != null) {
+                if (aux.getElem().equals(valor1)) {
+                    Nodo nuevo2 = new Nodo(valor2, aux.getEnlace());
+                    aux.setEnlace(nuevo2);
+                    aux = aux.getEnlace();
+                }
+                aux = aux.getEnlace();
+            }
+            
+        }
+
+    }
+}

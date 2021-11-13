@@ -2,13 +2,14 @@ package lineales.dinamicas;
 
 /**
  *
- * @author Mauricio Sawicki
+ * @author Mauricio Sawicki FAI-2256 / Carla Nuñez FAI-1631
  */
 public class Cola {
 
     private Nodo frente;
     private Nodo fin;
-
+    
+    //Crea y devuelve una cola vacía
     public Cola() {
         this.frente = null;
         this.fin = null;
@@ -33,7 +34,8 @@ public class Cola {
         this.fin = nuevo;
         return true;
     }
-
+   // Saca el elemento que está en el frente de la cola. Devuelve verdadero si el elemento se pudo sacar 
+   // (la estructura no estaba vacía) y falso en caso contrario. 
     public boolean sacar() {
         boolean exito = false;
         if (this.frente != null) {
@@ -45,7 +47,7 @@ public class Cola {
         }
         return exito;
     }
-
+    // Devuelve el elemento que está en el frente. Precondición: la cola no está vacía
     public Object obtenerFrente() {
         Object elem;
 
@@ -56,12 +58,13 @@ public class Cola {
         }
         return elem;
     }
-
+    // Saca todos los elementos de la estructura.
     public void vaciar() {
         this.frente = null;
         this.fin = null;
     }
 
+    // Devuelve una copia exacta de los datos en la estructura original, y respetando el orden de los mismos, en otra estructura del mismo tipo
     @Override
     public Cola clone() {
         Cola colaClon;
@@ -92,7 +95,7 @@ public class Cola {
         return colaClon;
 
     }
-    
+    //Mejor versión del metodo clone
      public Cola clone2() {
         Cola clon = new Cola();
         if (!esVacia()) {

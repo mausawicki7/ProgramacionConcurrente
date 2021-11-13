@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package jerarquicas;
 
 /**
@@ -14,11 +10,6 @@ public class NodoGen {
     private NodoGen hijoIzquierdo;
     private NodoGen hermanoDerecho;  
 
-public NodoGen(){
-    this.elem = null;
-    this.hijoIzquierdo = null;
-    this.hermanoDerecho = null;
-}    
 
 public NodoGen(Object elemento){
     this.elem = elemento;

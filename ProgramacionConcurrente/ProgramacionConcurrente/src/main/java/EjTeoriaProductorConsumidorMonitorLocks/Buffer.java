@@ -34,11 +34,11 @@ public class Buffer {
         mutex.lock();
         while (cantidad == tamaño) {
             System.out.println(Thread.currentThread().getName() + " no puedo agregar mas productos, buffer lleno.");
-            productores.await(); //Espera bloqueao
+            productores.await(); //Espera bloqueado
         }
         cantidad++;
         System.out.println(Thread.currentThread().getName() +" agregando productos..");
-        consumidores.signalAll();
+        consumidores.signal();
         mutex.unlock();
     }
 
@@ -50,7 +50,7 @@ public class Buffer {
         }
         cantidad--;
         System.out.println(Thread.currentThread().getName() +" consumiendo un producto..");
-        productores.signalAll();
+        productores.signal();
         mutex.unlock();
     }
 

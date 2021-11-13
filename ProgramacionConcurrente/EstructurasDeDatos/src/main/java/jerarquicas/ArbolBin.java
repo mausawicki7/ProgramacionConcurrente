@@ -309,27 +309,47 @@ public class ArbolBin {
         return res;
     }
 
+    public void alterarParte(Object hi, Object hd, Object pp) {
+        if (this.raiz != null) {
+            NodoArbol nuevo = obtenerNodo(this.raiz, pp);
+            if (nuevo != null) {
+                alterarParteAux(this.raiz, hi, hd);
+            }
+        }
+    }
+
+    private void alterarParteAux(NodoArbol nuevo, Object hi, Object hd) {
+        if(nuevo.getIzquierdo() != null && nuevo.getDerecho() == null){
+            nuevo.setIzquierdo(new NodoArbol(hi));
+            nuevo.setDerecho(new NodoArbol(hd));
+
+        }else{
+            nuevo.setIzquierdo(new NodoArbol(hi));
+            //HACEEER
+        }
+    }
+
+    
+    
+    
     //Metodo que me devuelve una lista con todas las hojas del arbol
     //el orden es n porque se visita una vez cada nodo del arbol 
     //este seria el texto para justificar el orden
     public Lista frontera() {
         Lista lista = new Lista();
-
-        int pos = 1;
-        fronteraRec(this.raiz, lista, pos);
-
+        fronteraRec(this.raiz, lista, 1);
         return lista;
     }
 
-    private void fronteraRec(NodoArbol a, Lista lista2, int pos) {
-        if (a != null) {
-            if (a.getDerecho() == null && a.getIzquierdo() == null) {
+    private void fronteraRec(NodoArbol nodo, Lista lista2, int pos) {
+        if (nodo != null) {
+            if (nodo.getDerecho() == null && nodo.getIzquierdo() == null) {
 
-                lista2.insertar(a.getElem(), pos);
+                lista2.insertar(nodo.getElem(), pos);
 
             } else {
-                fronteraRec(a.getDerecho(), lista2, pos);
-                fronteraRec(a.getIzquierdo(), lista2, pos);
+                fronteraRec(nodo.getDerecho(), lista2, pos);
+                fronteraRec(nodo.getIzquierdo(), lista2, pos);
             }
         }
     }
