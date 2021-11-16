@@ -3,7 +3,7 @@
    GRUPO 7
    Sawicki Mauricio, Vergara Mariano, Alvarez Percy
  */
-package ActividadObligatoria3ConditionLocks;
+package ActividadObligatoria3ConditionLocks2;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;

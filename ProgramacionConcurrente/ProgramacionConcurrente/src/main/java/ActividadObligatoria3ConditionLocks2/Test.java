@@ -3,16 +3,16 @@
    GRUPO 7
    Sawicki Mauricio, Vergara Mariano, Alvarez Percy
  */
-package ActividadObligatoria3ConditionLocks;
+package ActividadObligatoria3ConditionLocks2;
 
 public class Test {
 
     public static void main(String[] args) {
         int cantMaxMuebles = 8;
-        int cantCarpinterosC1 = 4;
-        int cantCarpinterosC2 = 6;
-        int cantCarpinterosC3 = 8;
-        int cantEnsambladores = 3;
+        int cantCarpinterosC1 = 1;
+        int cantCarpinterosC2 = 1;
+        int cantCarpinterosC3 = 1;
+        int cantEnsambladores = 1;
 
         Carpinteria carpinteria = new Carpinteria(cantMaxMuebles);
 
